@@ -188,3 +188,4 @@ checkLogin().then(loadProducts);
 </script>
 </body>
 </html>
+ 
