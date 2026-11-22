@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRIPSII STORE ADMIN</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 25px;
+    }
+    .panel {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 25px;
+      background: #222;
+      border-radius: 15px;
+    }
+    input, button {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+    }
+    button {
+      background: #d4af37;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="panel">
+    <h2>CRIPSII STORE</h2>
+    <h3>ADMINISTRATION</h3>
+    <input id="email" type="email" placeholder="Adresse Gmail">
+    <input id="password" type="password" placeholder="Mot de passe">
+    <button onclick="login()">SE CONNECTER</button>
+    <p id="message"></p>
+  </div>
+
+  <script>
+    const SUPABASE_URL = "sb_publishable_kZt2FTnLSrzMb3y8xLdOpg_HGb5NtYZ";
+    const SUPABASE_KEY = "https://ticisdyfdgauczfifxqi.supabase.co/rest/v1/";
+
+    const db = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+    async function login() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const message = document.getElementById("message");
+
+      message.textContent = "Connexion en cours...";
+
+      const { data, error } = await db.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) {
+        message.textContent = "Erreur : " + error.message;
+        return;
+      }
+
+      message.textContent = "Connexion réussie !";
+    }
+  </script>
+</body>
+</html>
